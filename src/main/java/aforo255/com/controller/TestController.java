@@ -8,6 +8,6 @@ public class TestController {
 
 	@GetMapping("/test")
 	public String TestFirstJob() {
-		return "Welcome to MasterDevops |Tomcat | Ansible , AFORO255";
+		return "Welcome to MasterDevops |Tomcat v1 | Ansible , AFORO255";
 	}
 }
