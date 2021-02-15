@@ -8,6 +8,6 @@ public class TestController {
 
 	@GetMapping("/test")
 	public String TestFirstJob() {
-		return "Welcome to MasterDevops , AFORO255";
+		return "Welcome to MasterDevops | Asinble , AFORO255";
 	}
 }
