@@ -62,7 +62,6 @@ stages:
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'ServiceConectionEKS'
-        namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/Devops.yaml'
         containers: 'antony0618/simple-devops:$(tag)'
 
