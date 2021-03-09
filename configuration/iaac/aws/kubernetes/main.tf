@@ -16,15 +16,16 @@ resource "aws_default_vpc" "default" {
 
 }
 
-data "aws_subnet_ids" "subnets"{
-  vpc_id= aws_default_vpc.default.id
+data "aws_subnet_ids" "subnets" {
+  vpc_id = aws_default_vpc.default.id
 }
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
- // load_config_file       = false  
+  load_config_file       = false
+ // version                = "~> 1.9"
 }
 
 module "aforo255-cluster" {
@@ -33,30 +34,28 @@ module "aforo255-cluster" {
   cluster_version = "1.17"
   subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"] #change
  # vpc_id          = "vpc-1234556abcdef"
-  vpc_id          = aws_default_vpc.default.id 
+  vpc_id          = aws_default_vpc.default.id
 
   node_groups = [
     {
-      instance_type = "t2.micro"
+       instance_type = "t2.micro"
       max_capacity  = 5
-      desired_capacity =2 
-      min_capacity = 2
+      desired_capacity = 3
+      min_capacity  = 3
     }
   ]
 }
 
 data "aws_eks_cluster" "cluster" {
-  
-  name  = module.aforo255-cluster.cluster_id
+  name = module.aforo255-cluster.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
- 
-  name  = module.aforo255-cluster.cluster_id
+  name = module.aforo255-cluster.cluster_id
 }
 
 
-# we will use ServiceAccount to connect to k8s Cluster in CI/CD mode
+# We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
 # ServiceAccount needs permissions to create deployments 
 # and services in default namespace
 resource "kubernetes_cluster_role_binding" "example" {
@@ -71,7 +70,7 @@ resource "kubernetes_cluster_role_binding" "example" {
   subject {
     kind      = "ServiceAccount"
     name      = "default"
-    namespace = "default" 
+    namespace = "default"
   }
 }
 
