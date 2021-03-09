@@ -6,35 +6,10 @@
 # 5l93ML4r64p93dDJhpaSVbfGqHUrFZcYQYwHiB4x
 terraform {
   backend "s3" {
-    bucket = "mybucket" # will be overridden from build
-    key = "path/to/my/key" # will be overridden from build
-    region ="us-east-1"  
+    bucket = "mybucket" # Will be overridden from build
+    key    = "path/to/my/key" # Will be overridden from build
+    region = "us-east-1"
   }
-}
-
-
-resource "aws_iam_role" "example" {
-  name = "eks-cluster-example"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-}
-
-resource "aws_iam_role_policy_attachment" "example-AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.example.name
 }
 
 resource "aws_default_vpc" "default" {
@@ -49,7 +24,7 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  //load_config_file       = false
+  load_config_file       = false
  // version                = "~> 1.9"
 }
 
@@ -57,13 +32,14 @@ module "aforo255-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "aforo255-cluster"
   cluster_version = "1.17"
-  subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"] #change
- # vpc_id          = "vpc-1234556abcdef"
+  subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
+  #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
+  #vpc_id         = "vpc-1234556abcdef"
 
   node_groups = [
     {
-       instance_type = "t2.micro"
+      instance_type = "t2.micro"
       max_capacity  = 5
       desired_capacity = 3
       min_capacity  = 3
