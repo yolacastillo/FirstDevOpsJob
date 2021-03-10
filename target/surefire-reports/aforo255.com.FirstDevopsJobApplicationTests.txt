@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: aforo255.com.FirstDevopsJobApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.459 s - in aforo255.com.FirstDevopsJobApplicationTests
