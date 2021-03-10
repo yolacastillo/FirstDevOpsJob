@@ -9,8 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: latest 
-  #'$(Build.BuildId)'
+  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -21,13 +20,15 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    # - task: Docker@2
-    #   displayName: Build an image
-    #   inputs:
-    #     command: build
-    #     dockerfile: '$(Build.SourceDirectory)/Dockerfile'
-    #     tags: |
-    #       $(tag)
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: 'DockerHubConection'
+        repository: 'antony0618/simple-devops'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
+
     - task: CopyFiles@2
       inputs:
         SourceFolder: ''
