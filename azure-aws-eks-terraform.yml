@@ -1,4 +1,5 @@
 
+
 trigger:
 - main
 
@@ -18,7 +19,7 @@ steps:
     provider: 'aws'
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
-    backendServiceAWS: 'Aws-terraform'
+    backendServiceAWS: 'TerraformAWS'
     backendAWSBucketName: 'terraform-backend-state-aforo255'
     backendAWSKey: 'kubernetes-dev.tfstate'
 - task: TerraformTaskV1@0
@@ -26,13 +27,4 @@ steps:
     provider: 'aws'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
-    environmentServiceNameAWS: 'Aws-terraform'
-- task: TerraformTaskV1@0
-  inputs:
-    provider: 'aws'
-    command: 'destroy'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
-    environmentServiceNameAWS: 'Aws-terraform'    
-  
-# init - backend 
-# apply 
+    environmentServiceNameAWS: 'TerraformAWS'
