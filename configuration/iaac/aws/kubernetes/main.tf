@@ -2,8 +2,9 @@
 # aws eks  --region us-east-1 update-kubeconfig --name aforo255-cluster
 # Uses default VPC  and Subnet. Create Your Own VPC and Private Subnets for 
 # terraform-backend-state-aforo255
-# AKIAXX4OA7XMEK5BV2GI
+# AKIAXX4OA7XMEK5BV2GI   terraform-aws-user
 # 5l93ML4r64p93dDJhpaSVbfGqHUrFZcYQYwHiB4x
+#arn:aws:iam::532336934360:user/terraform-aws-user
 terraform {
   backend "s3" {
     bucket = "mybucket" # Will be overridden from build
@@ -28,9 +29,9 @@ provider "kubernetes" {
  // version                = "~> 1.9"
 }
 
-module "aforo255-cluster" {
+module "aforo255-cluster-dev" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "aforo255-cluster"
+  cluster_name    = "aforo255-cluster-dev"
   cluster_version = "1.17"
   subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
@@ -48,11 +49,11 @@ module "aforo255-cluster" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.aforo255-cluster.cluster_id
+  name = module.aforo255-cluster-dev.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.aforo255-cluster.cluster_id
+  name = module.aforo255-cluster-dev.cluster_id
 }
 
 
@@ -80,8 +81,8 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_iam_role" "test_role" {
-  name = "test_role"
+resource "aws_iam_role" "test_role_dev" {
+  name = "test_role_dev"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
