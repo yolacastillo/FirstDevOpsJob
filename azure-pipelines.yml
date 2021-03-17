@@ -52,6 +52,7 @@ stages:
         artifactName: 'drop'
         itemPattern: '**/*.yaml'
         targetPath: '$(System.ArtifactsDirectory)'
+        
 
 
 
