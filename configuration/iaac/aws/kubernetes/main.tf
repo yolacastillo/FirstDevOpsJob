@@ -29,9 +29,9 @@ provider "kubernetes" {
  // version                = "~> 1.9"
 }
 
-module "aforo255-cluster-dev" {
+module "aforo255-cluster" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "aforo255-cluster-dev"
+  cluster_name    = "aforo255-cluster"
   cluster_version = "1.17"
   subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
@@ -49,11 +49,11 @@ module "aforo255-cluster-dev" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.aforo255-cluster-dev.cluster_id
+  name = module.aforo255-cluster.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.aforo255-cluster-dev.cluster_id
+  name = module.aforo255-cluster.cluster_id
 }
 
 
@@ -81,8 +81,8 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_iam_role" "test_role_dev" {
-  name = "test_role_dev"
+resource "aws_iam_role" "test_role" {
+  name = "test_role"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
