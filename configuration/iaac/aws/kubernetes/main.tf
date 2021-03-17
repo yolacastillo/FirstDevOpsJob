@@ -81,8 +81,8 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_iam_role" "test_role" {
-  name = "test_role"
+resource "aws_iam_role" "test_role_dev" {
+  name = "test_role_dev"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
