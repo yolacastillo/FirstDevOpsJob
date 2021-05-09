@@ -14,7 +14,7 @@
 	<name>FirstDevopsJob</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,7 +45,7 @@
 	</build>
 	
 	
-<!--<packaging>${packaging.type}</packaging>	
+<packaging>${packaging.type}</packaging>	
 <profiles>
    <profile>
        <id>jar</id>
@@ -68,6 +68,6 @@
             </dependency>
        </dependencies>
    </profile>
-</profiles> -->
+</profiles> 
 
 </project>
