@@ -29,9 +29,9 @@ provider "kubernetes" {
  // version                = "~> 1.9"
 }
 
-module "aforo255-cluster2" {
+module "aforo255-cluster3" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "aforo255-cluster2"
+  cluster_name    = "aforo255-cluster3"
   cluster_version = "1.17"
   subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
@@ -41,19 +41,19 @@ module "aforo255-cluster2" {
   node_groups = [
     {
       instance_type = "t2.micro"
-      max_capacity  = 5
+      max_capacity  = 3
       desired_capacity = 3
-      min_capacity  = 3
+      min_capacity  = 2
     }
   ]
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.aforo255-cluster2.cluster_id
+  name = module.aforo255-cluster3.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.aforo255-cluster2.cluster_id
+  name = module.aforo255-cluster3.cluster_id
 }
 
 
