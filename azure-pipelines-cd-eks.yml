@@ -40,5 +40,19 @@ stages:
 
 #########################################################################
 ############ DEPLOY #####################################################
+- stage: Deploy
+  displayName: Build
+  jobs:
+  - job: Deploy
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        itemPattern: '**/*.yaml'
+        targetPath: '$(System.ArtifactsDirectory)'
 
 
