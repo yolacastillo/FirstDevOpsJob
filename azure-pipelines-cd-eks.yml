@@ -54,5 +54,11 @@ stages:
         artifactName: 'drop'
         itemPattern: '**/*.yaml'
         targetPath: '$(System.ArtifactsDirectory)'
-
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'aws-eks'
+        manifests: '$(System.ArtifactsDirectory)/Devops.yaml'
+        containers: 'antony0618/simple-devops:$(tag)'
+    
 
