@@ -54,17 +54,20 @@ stages:
       vmImage: ubuntu-latest
 
     steps:
+
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
         artifactName: 'drop'
         itemPattern: '**/*.yaml'       
         downloadPath: '$(System.ArtifactsDirectory)'
-        
+
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'aws-eks-conection'
+        manifests: '$(System.ArtifactsDirectory)/Devops.yaml'
+        containers: 'antony0618/simple-devops'
         
 
 
