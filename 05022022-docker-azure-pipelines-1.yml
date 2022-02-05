@@ -60,6 +60,12 @@ stages:
         artifactName: 'drop'
         itemPattern: '**/*.yaml'       
         downloadPath: '$(System.ArtifactsDirectory)'
+        
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'aws-eks-conection'
+        
 
 
     
