@@ -38,7 +38,7 @@ module "aforo255-cluster6AV" {
 
 worker_groups = [
     {
-      instance_type = "t2.micro"
+      instance_type = "t2.medium"
       asg_max_size  = 2
     }
 ]
