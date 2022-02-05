@@ -24,7 +24,12 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'DockerHun'
-        repository: 'antony0618/simple-devops'
+        repository: '- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'aws-eks-conection'
+    manifests: '$(System.ArtifactsDirectory)/Devops.yaml'
+    containers: 'antony0618/simple-devops''
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -55,6 +60,7 @@ stages:
         artifactName: 'drop'
         itemPattern: '**/*.yaml'       
         downloadPath: '$(System.ArtifactsDirectory)'
+
 
     
 
