@@ -31,17 +31,12 @@ module "aforo255-cluster6AV" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "aforo255-cluster6AV"
   cluster_version = "1.21"
-  subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
+  #subnets         = ["subnet-adfa07f2", "subnet-a3c23d82"]  #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
   #vpc_id         = "vpc-1234556abcdef" 
 
-worker_groups = [
-    {
-      instance_type = "t2.medium"
-      asg_max_size  = 2
-    }
-]
+
 
 }
 
