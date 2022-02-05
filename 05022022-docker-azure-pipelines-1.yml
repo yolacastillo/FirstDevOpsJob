@@ -37,3 +37,26 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
         publishLocation: 'Container'
+
+###############################################################################
+############################ DEPLOY ###########################################
+- stage: Deploy
+  displayName: Build
+  jobs:
+  - job: Deploy
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        itemPattern: '**/*.yaml'       
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    
+
+
+
