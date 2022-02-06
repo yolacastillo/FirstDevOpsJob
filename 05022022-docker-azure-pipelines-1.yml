@@ -30,7 +30,7 @@ stages:
         tags: '$(tag)'
     - task: CopyFiles@2
       inputs:
-        Contents: '**/*.yaml'
+        Contents: '*.yaml'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
@@ -54,7 +54,7 @@ stages:
       inputs:
         buildType: 'current'
         artifactName: 'drop'
-        itemPattern: '**/*.yaml'       
+        itemPattern: '*.yaml'       
         downloadPath: '$(System.ArtifactsDirectory)'
 
     - task: KubernetesManifest@0
