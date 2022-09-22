@@ -23,7 +23,7 @@ pipeline {
                script {
          // Build and push image with Jenkins' docker-plugin
             withDockerRegistry([credentialsId: "dockerhub", url: "https://index.docker.io/v1/"]) {
-            image = docker.build("yolacastillo/FirstDevOpsJob")
+            image = docker.build(yolacastillo/firstdevopsjob")
             image.push()    
             }
                }
