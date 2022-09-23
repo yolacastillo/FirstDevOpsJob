@@ -14,7 +14,7 @@ pipeline {
         }
     stage ('Build') {
          steps {
-             bat(script: 'mvn -f pom.xml clean install', returnStdout: true);
+             sh(script: 'mvn -f pom.xml clean install', returnStdout: true);
          }
         }
         
@@ -29,7 +29,7 @@ pipeline {
         
          stage ('K8S Deploy') {
             steps {
-              sh (script:  'aws configure set region us-east-1',returnStdout: true);
+              sh(script:  'aws configure set region us-east-1',returnStdout: true);
               sh(script: 'kubectl config use-context devops@eks-cluster.us-east-1.eksctl.io  --kubeconfig=$KUBE_PATH_CONFIG', returnStdout: true);
               sh(script: 'Kubectl delete --all pods --kubeconfig=$KUBE_PATH_CONFIG & kubectl apply -f Devops.yaml --kubeconfig=$KUBE_PATH_CONFIG', returnStdout: true);
             }
