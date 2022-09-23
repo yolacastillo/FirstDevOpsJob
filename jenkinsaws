@@ -30,7 +30,7 @@ pipeline {
          stage ('K8S Deploy') {
             steps {
               sh(script:  'aws configure set region us-east-1',returnStdout: true);
-              sh(script: 'kubectl config use-context arn:aws:eks:us-east-1:665701706644:cluster/eks-cluster  --kubeconfig=$KUBE_PATH_CONFIG', returnStdout: true);
+              sh(script: 'kubectl config use-context arn:aws:eks:us-east-1:665701706644:cluster/eks-cluster --kubeconfig=$KUBE_PATH_CONFIG', returnStdout: true);
               sh(script: 'Kubectl delete --all pods --kubeconfig=$KUBE_PATH_CONFIG & kubectl apply -f Devops.yaml --kubeconfig=$KUBE_PATH_CONFIG', returnStdout: true);
             }
                
