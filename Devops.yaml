@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: service-devops
-        image: yolacastillo/FirstDevOpsJob:latest
+        image: yolacastillo/firstdevopsjob:latest
         ports:
         - containerPort: 8080
 ---
